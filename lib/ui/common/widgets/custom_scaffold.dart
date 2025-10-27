@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:news/ui/providers/theme_provider.dart';
 import 'package:news/ui/resources/designs/design.dart';
 import 'package:provider/provider.dart';
+import '../../home_screen/home_screen.dart';
 
 class CustomScaffold extends StatelessWidget {
   final String title;
@@ -34,8 +35,11 @@ class CustomScaffold extends StatelessWidget {
             // 🏠 Go To Home
             GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, "/home");
-              },
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                );
+    },
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Row(
@@ -145,7 +149,6 @@ class CustomScaffold extends StatelessWidget {
             ),
             const SizedBox(height: 25),
 
-            // 🌍 Language
             Padding(
               padding: const EdgeInsets.all(16),
               child: Row(

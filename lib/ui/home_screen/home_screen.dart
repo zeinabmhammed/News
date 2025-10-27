@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news/data/model/category_model.dart';
 import 'package:news/ui/home_screen/widget/category_widget.dart';
-
 import '../common/widgets/custom_scaffold.dart';
 
 class HomeScreen extends StatelessWidget {

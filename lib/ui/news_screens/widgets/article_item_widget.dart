@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:news/data/model/article_model.dart';
+import 'package:news/api/model/response/articles/Articles.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class ArticleItemWidget extends StatelessWidget {
   const ArticleItemWidget({super.key, required this.article});
-  final ArticleModel article;
+  final Article article;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class ArticleItemWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CachedNetworkImage(
-            imageUrl: article.image ?? "",
+            imageUrl: article.urlToImage ?? "",
             height: 200,
             width: double.infinity,
             fit: BoxFit.cover,
@@ -53,11 +53,13 @@ class ArticleItemWidget extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      timeago.format(
-                        article.publishAt ?? DateTime.now(),
+                      article.publishedAt ?? ""
+
+                     /* timeago.format(
+                        article.publishedAt ?? DateTime.now(),
                         locale: 'en',
                       ),
-                      style: const TextStyle(color: Colors.grey),
+                      style: const TextStyle(color: Colors.grey),*/
                     ),
                   ],
                 ),
