@@ -36,8 +36,11 @@ class MyApp extends StatelessWidget {
 
      routes:{
         AppRoutes.SplashScreen.route: (context) => SplashScreen(),
+        AppRoutes.HomeScreen.route: (context) => HomeScreen(),
+        AppRoutes.NewsScreen.route: (context) => NewsScreen(),
+
      },
-      initialRoute: AppRoutes.SplashScreen.route,
+      initialRoute: AppRoutes.HomeScreen.route,
     );
   }
 }

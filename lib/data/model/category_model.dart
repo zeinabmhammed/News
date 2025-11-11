@@ -1,24 +1,62 @@
 import 'package:news/ui/resources/designs/design.dart';
 
-class Category {
+class CategoryModel {
   final String? lightImage;
   final String? darkImage;
   final String? title ;
+  final String? id;
 
-  Category({
+
+  CategoryModel({
     this.lightImage,
     this.darkImage,
-    this.title
+    this.title,
+    this.id
   });
 
-  static List<Category> categories = [
-    Category(title: "",  lightImage: AppImages.generalImage),
-    Category(title: "",  lightImage: AppImages.businessImage),
-    Category(title: "",  lightImage: AppImages.sportsImage),
-    Category(title: "",  lightImage: AppImages.healthImage),
-    Category(title: "",  lightImage: AppImages.entertainmentImage),
-    Category(title: "",  lightImage: AppImages.technologyImage),
-    Category(title: "",  lightImage: AppImages.scienceImage),
+  static List<CategoryModel> categories = [
+    CategoryModel(
+        title: "General",
+        id: "general",
+        lightImage: AppImages.generalImage,
+        darkImage: AppImages.generalLight
+    ),
+    CategoryModel(
+        title: "Business",
+        id: "business",
+        lightImage: AppImages.businessImage,
+        darkImage: AppImages.businessLight
+    ),
+    CategoryModel(
+        title: "Sports",
+        id: "sports",
+        lightImage: AppImages.sportsImage,
+        darkImage: AppImages.sportsLight
+    ),
+    CategoryModel(
+        title: "Health",
+        id: "health",
+        lightImage: AppImages.healthImage,
+        darkImage: AppImages.healthLight
+    ),
+    CategoryModel(
+        title: "Entertainment",
+        id: "entertainment",
+        lightImage: AppImages.entertainmentImage,
+        darkImage: AppImages.entertainmentLight
+    ),
+    CategoryModel(
+        title: "Technology",
+        id: "technology",
+        lightImage: AppImages.technologyImage,
+        darkImage: AppImages.technologyLight
+    ),
+    CategoryModel(
+        title: "Science",
+        id: "science",
+        lightImage: AppImages.scienceImage,
+        darkImage: AppImages.scienceLight
+    ),
 
   ];
 

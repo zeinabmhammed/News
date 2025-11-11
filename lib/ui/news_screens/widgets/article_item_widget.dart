@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news/api/model/response/articles/Articles.dart';
+import 'package:news/core/extentions/date_format_extensions.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class ArticleItemWidget extends StatelessWidget {
@@ -45,21 +46,26 @@ class ArticleItemWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      article.author ?? "",
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w600,
+                    Expanded(
+                      child: Text(
+                        article.author ?? "",
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    Text(
-                      article.publishedAt ?? ""
-
-                     /* timeago.format(
-                        article.publishedAt ?? DateTime.now(),
-                        locale: 'en',
+                    Expanded(
+                      child: Text(
+                        article.publishedAt?.formatArticleDate() ?? "",
+                        textAlign: TextAlign.end,
+                        style:  TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                      style: const TextStyle(color: Colors.grey),*/
                     ),
                   ],
                 ),

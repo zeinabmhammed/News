@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:news/routes.dart';
 import 'package:news/ui/providers/theme_provider.dart';
 import 'package:news/ui/resources/designs/design.dart';
 import 'package:provider/provider.dart';
-import '../../home_screen/home_screen.dart';
 
-class CustomScaffold extends StatelessWidget {
+
+class CustomScaffold extends StatefulWidget {
   final String title;
   final List<Widget> actions;
   final Widget body;
@@ -19,27 +20,44 @@ class CustomScaffold extends StatelessWidget {
   });
 
   @override
+  State<CustomScaffold> createState() => _CustomScaffoldState();
+}
+
+class _CustomScaffoldState extends State<CustomScaffold> {
+  @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    final isDark = themeProvider.isDarkMode;
 
     return Scaffold(
-      appBar: AppBar(title: Text(title), centerTitle: true, actions: actions),
+      appBar: AppBar(
+        title: Text(widget.title),
+        centerTitle: true,
+        actions: widget.actions,
+      ),
       drawer: Drawer(
         width: MediaQuery.of(context).size.width * 0.7,
-        backgroundColor: isDark ? AppColors.dark : AppColors.light,
+        backgroundColor: AppColors.dark,
         child: Column(
           children: [
-            const DrawerHeader(child: Center(child: Text("News App"))),
+            DrawerHeader(
+              decoration: BoxDecoration(color: AppColors.light),
+              child: Center(
+                child: Text(
+                  "News App",
+                  style: TextStyle(
+                    color: AppColors.dark,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
 
-            // 🏠 Go To Home
             GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()),
-                );
-    },
+                Navigator.pushNamed(context, AppRoutes.HomeScreen.route);
+              },
+
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Row(
@@ -48,7 +66,7 @@ class CustomScaffold extends StatelessWidget {
                       AppImages.homeIcon,
                       width: 24,
                       colorFilter: ColorFilter.mode(
-                        isDark ? AppColors.light : AppColors.dark,
+                        AppColors.light,
                         BlendMode.srcIn,
                       ),
                     ),
@@ -56,7 +74,7 @@ class CustomScaffold extends StatelessWidget {
                     Text(
                       "Go To Home",
                       style: GoogleFonts.inter(
-                        color: isDark ? AppColors.light : AppColors.dark,
+                        color: AppColors.light,
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
                       ),
@@ -68,7 +86,7 @@ class CustomScaffold extends StatelessWidget {
 
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Divider(),
+              child: Divider(color: AppColors.light),
             ),
 
             Padding(
@@ -79,7 +97,7 @@ class CustomScaffold extends StatelessWidget {
                     AppImages.themeIcon,
                     width: 26,
                     colorFilter: ColorFilter.mode(
-                      isDark ? AppColors.light : AppColors.dark,
+                      AppColors.light,
                       BlendMode.srcIn,
                     ),
                   ),
@@ -87,7 +105,7 @@ class CustomScaffold extends StatelessWidget {
                   Text(
                     "Theme",
                     style: GoogleFonts.inter(
-                      color: isDark ? AppColors.light : AppColors.dark,
+                      color: AppColors.light,
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
                     ),
@@ -101,33 +119,27 @@ class CustomScaffold extends StatelessWidget {
               width: 237,
               padding: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
-                color: isDark ? AppColors.dark : AppColors.light,
-                border: Border.all(
-                  color: isDark ? AppColors.light : AppColors.dark,
-                ),
+                color: AppColors.dark,
+                border: Border.all(color: AppColors.light),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
-                  dropdownColor: isDark ? AppColors.dark : AppColors.light,
-                  value: isDark ? "Dark" : "Light",
+                  dropdownColor: AppColors.dark,
+                  value: "Light",
                   items: [
                     DropdownMenuItem(
                       value: "Light",
                       child: Text(
                         "Light",
-                        style: TextStyle(
-                          color: isDark ? AppColors.light : AppColors.dark,
-                        ),
+                        style: TextStyle(color: AppColors.light),
                       ),
                     ),
                     DropdownMenuItem(
                       value: "Dark",
                       child: Text(
                         "Dark",
-                        style: TextStyle(
-                          color: isDark ? AppColors.light : AppColors.dark,
-                        ),
+                        style: TextStyle(color: AppColors.light),
                       ),
                     ),
                   ],
@@ -145,7 +157,7 @@ class CustomScaffold extends StatelessWidget {
             const SizedBox(height: 25),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Divider(),
+              child: Divider(color: AppColors.light),
             ),
             const SizedBox(height: 25),
 
@@ -157,16 +169,17 @@ class CustomScaffold extends StatelessWidget {
                     AppImages.languageIcon,
                     width: 24,
                     colorFilter: ColorFilter.mode(
-                      isDark ? AppColors.light : AppColors.dark,
+                      AppColors.light,
                       BlendMode.srcIn,
                     ),
                   ),
                   const SizedBox(width: 8),
                   Text(
                     "Language",
-                    style: TextStyle(
-                      color: isDark ? AppColors.light : AppColors.dark,
-                      fontSize: 16,
+                    style: GoogleFonts.inter(
+                      color: AppColors.light,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ],
@@ -179,44 +192,39 @@ class CustomScaffold extends StatelessWidget {
               width: 237,
               padding: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
-                color: isDark ? AppColors.dark : AppColors.light,
-                border: Border.all(
-                  color: isDark ? AppColors.light : AppColors.dark,
-                ),
+                color: AppColors.dark,
+                border: Border.all(color: AppColors.light),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
-                  dropdownColor: isDark ? AppColors.dark : AppColors.light,
+                  dropdownColor: AppColors.dark,
                   value: "English",
                   items: [
                     DropdownMenuItem(
                       value: "English",
                       child: Text(
                         "English",
-                        style: TextStyle(
-                          color: isDark ? AppColors.light : AppColors.dark,
-                        ),
+                        style: TextStyle(color: AppColors.light),
                       ),
                     ),
                     DropdownMenuItem(
                       value: "Arabic",
                       child: Text(
                         "Arabic",
-                        style: TextStyle(
-                          color: isDark ? AppColors.light : AppColors.dark,
-                        ),
+                        style: TextStyle(color: AppColors.light),
                       ),
                     ),
                   ],
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                  },
                 ),
               ),
             ),
           ],
         ),
       ),
-      body: body,
+      body: widget.body,
     );
   }
 }

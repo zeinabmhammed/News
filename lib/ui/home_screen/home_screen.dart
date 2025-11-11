@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:news/data/model/category_model.dart';
-import 'package:news/ui/home_screen/widget/category_widget.dart';
+import 'package:news/ui/home_screen/widget/category_card.dart';
 import '../common/widgets/custom_scaffold.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +30,11 @@ class HomeScreen extends StatelessWidget {
           Expanded(
             child: ListView.separated(
                 itemBuilder: (context , index){
-                  var category = Category.categories[index];
-                  return CategoryWidget(category: category, index: index,);
+                  var category = CategoryModel.categories[index];
+                  return CategoryCard(category: category, index: index,);
                 },
                 separatorBuilder: (context , index)=> SizedBox(height: 8,),
-                itemCount: Category.categories.length,
+                itemCount: CategoryModel.categories.length,
             ),
           ),
         ],

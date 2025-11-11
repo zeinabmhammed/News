@@ -12,16 +12,23 @@ class AppImages{
   static const String splashLogo = "assets/images/splash_logo.png";
 
   // lightImage
+  static const String generalLight = "assets/images/generalLight.png";
+  static const String businessLight = "assets/images/busniessLight.png";
+  static const String sportsLight = "assets/images/entertainmentLight.png";
+  static const String healthLight = "assets/images/healthLight.png";
+  static const String entertainmentLight = "assets/images/entertainmentLight.png";
+  static const String technologyLight = "assets/images/technologyLight.png";
+  static const String scienceLight = "assets/images/scienceLight.png";
 
 
   //darkImage
-  static const String generalImage = "assets/images/general.png";
-  static const String businessImage = "assets/images/darkBusiness.png";
-  static const String entertainmentImage = "assets/images/darkEntertainment.png";
-  static const String healthImage = "assets/images/darkHealth.png";
-  static const String scienceImage = "assets/images/darkScience.png";
-  static const String technologyImage = "assets/images/darkTechnology.png";
-  static const String sportsImage = "assets/images/darkSports.png";
+  static const String generalImage = "assets/images/general_dark.png";
+  static const String businessImage = "assets/images/busniess_dark.png";
+  static const String entertainmentImage = "assets/images/entertainment_dark.png";
+  static const String healthImage = "assets/images/health_dark.png";
+  static const String scienceImage = "assets/images/science_dark.png";
+  static const String technologyImage = "assets/images/technology_dark.png";
+  static const String sportsImage = "assets/images/sport_dark.png";
 
 
   //icons
