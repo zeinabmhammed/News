@@ -10,9 +10,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScaffold(
       title: "Home",
-      actions: [
-        IconButton(onPressed: () {}, icon: Icon(Icons.search_outlined)),
-      ],
+      actions: [],
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

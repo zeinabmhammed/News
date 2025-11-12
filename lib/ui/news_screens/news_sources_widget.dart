@@ -5,10 +5,13 @@ import 'package:news/api/model/response/sources/Sources.dart';
 import 'package:news/data/model/category_model.dart';
 import 'package:news/ui/common/widgets/custom_scaffold.dart';
 import 'package:news/ui/news_screens/articles_list_widget.dart';
+import 'package:news/ui/search/search_results_list.dart';
 
 class NewsSourcesWidget extends StatefulWidget {
   List<Source> tabs;
-  NewsSourcesWidget(this.tabs, {super.key});
+  final String sourceName;
+
+  NewsSourcesWidget(this.tabs,{super.key, required this.sourceName});
 
   @override
   State<NewsSourcesWidget> createState() => _NewsSourcesWidgetState();
@@ -16,6 +19,7 @@ class NewsSourcesWidget extends StatefulWidget {
 
 class _NewsSourcesWidgetState extends State<NewsSourcesWidget> {
   int selectedIndex = 0;
+  String _searchQuery = "";
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +28,15 @@ class _NewsSourcesWidgetState extends State<NewsSourcesWidget> {
       length: widget.tabs.length,
       child: CustomScaffold(
         title: category.title ?? "",
-        actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.search_outlined)),
-        ],
-        body: Column(
+        enableSearch: true,
+        onSearchChanged: (query) {
+          setState(() {
+            _searchQuery = query;
+          });
+        },
+        actions: [],
+        body:  _searchQuery.isEmpty
+            ? Column(
           children: [
             TabBar(
               onTap: (index) {
@@ -60,18 +69,23 @@ class _NewsSourcesWidgetState extends State<NewsSourcesWidget> {
                 ),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   }
                   if (snapshot.hasError) {
-                    return Center(child: Text("Error"));
+                    return const Center(child: Text("Error"));
                   }
-                  var response = snapshot.data;
-                  return ArticlesListWidget(response?.articles ?? []);
+                  final response = snapshot.data;
+                  final articles = response?.articles ?? [];
+
+                  return ArticlesListWidget(
+                    articles,
+                    sourceName: widget.tabs[selectedIndex].name ?? "",
+                  );
                 },
               ),
             ),
           ],
-        ),
+        ): SearchResultsList(query: _searchQuery),
       ),
     );
   }

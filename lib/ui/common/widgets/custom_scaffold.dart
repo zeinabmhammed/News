@@ -6,17 +6,20 @@ import 'package:news/ui/providers/theme_provider.dart';
 import 'package:news/ui/resources/designs/design.dart';
 import 'package:provider/provider.dart';
 
-
 class CustomScaffold extends StatefulWidget {
   final String title;
   final List<Widget> actions;
   final Widget body;
+  final Function(String)? onSearchChanged; // callback للبحث
+  final bool enableSearch; // لو عايزة تفعل البحث
 
   const CustomScaffold({
     super.key,
     required this.title,
     required this.actions,
     required this.body,
+    this.onSearchChanged,
+    this.enableSearch = true,
   });
 
   @override
@@ -24,15 +27,97 @@ class CustomScaffold extends StatefulWidget {
 }
 
 class _CustomScaffoldState extends State<CustomScaffold> {
+  bool isSearching = false;
+  TextEditingController searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
         centerTitle: true,
-        actions: widget.actions,
+        title: !isSearching
+            ? Text(
+          widget.title,
+          style: GoogleFonts.inter(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: isDarkMode ? Colors.white : Colors.black,
+          ),
+        )
+            : SizedBox(
+          height: 45,
+          child: TextField(
+            controller: searchController,
+            autofocus: true,
+            onChanged: widget.onSearchChanged,
+            style: TextStyle(
+              color: isDarkMode ? Colors.white : Colors.black,
+            ),
+            decoration: InputDecoration(
+              hintText: "Search",
+              hintStyle: TextStyle(
+                color: isDarkMode ? Colors.white54 : Colors.black54,
+              ),
+              filled: true,
+              fillColor: isDarkMode
+                  ? Colors.grey.shade900
+                  : Colors.grey.shade200,
+              contentPadding: const EdgeInsets.symmetric(
+                  vertical: 0, horizontal: 16),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(24),
+                borderSide: BorderSide(
+                  color: isDarkMode ? AppColors.light : AppColors.dark,
+                  width: 1.5,
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(24),
+                borderSide: BorderSide(
+                  color: isDarkMode ? AppColors.light : AppColors.dark,
+                  width: 1.5,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(24),
+                borderSide: BorderSide(
+                  color: isDarkMode ? AppColors.light : AppColors.dark,
+                  width: 2,
+                ),
+              ),
+            ),
+          ),
+        ),
+        actions: [
+          if (!isSearching && widget.enableSearch)
+            IconButton(
+              icon: Icon(Icons.search_outlined,
+                  color: isDarkMode ? AppColors.light : AppColors.dark),
+              onPressed: () {
+                setState(() {
+                  isSearching = true;
+                });
+              },
+            ),
+          if (isSearching)
+            IconButton(
+              icon: Icon(Icons.close,
+                  color: isDarkMode ? AppColors.light : AppColors.dark),
+              onPressed: () {
+                setState(() {
+                  isSearching = false;
+                  searchController.clear();
+                  if (widget.onSearchChanged != null) {
+                    widget.onSearchChanged!(""); // إعادة النتائج الأصلية
+                  }
+                });
+              },
+            ),
+          ...widget.actions,
+        ],
       ),
       drawer: Drawer(
         width: MediaQuery.of(context).size.width * 0.7,

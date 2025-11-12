@@ -58,5 +58,24 @@ class ApiManger {
 
   }
 
+  Future<ArticlesResponse> searchArticles(String query) async {
+    var params = {
+      "apiKey": _apiKey,
+      "q": query,
+      "language": "en",
+      "pageSize": "30",
+    };
+
+    var uri = Uri.https(_baseUrl, _articlesApi, params);
+    var response = await http.get(uri);
+
+    print("Search Api : ${response.body}");
+    print("Search Api Status: ${response.statusCode}");
+
+    var json = jsonDecode(response.body);
+    ArticlesResponse articlesResponse = ArticlesResponse.fromJson(json);
+    return articlesResponse;
+  }
+
 
 }
