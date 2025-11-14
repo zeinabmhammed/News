@@ -23,6 +23,8 @@ class _NewsSourcesWidgetState extends State<NewsSourcesWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     var category = ModalRoute.of(context)?.settings.arguments as CategoryModel;
     return DefaultTabController(
       length: widget.tabs.length,
@@ -46,17 +48,19 @@ class _NewsSourcesWidgetState extends State<NewsSourcesWidget> {
               },
               isScrollable: true,
               tabAlignment: TabAlignment.start,
-              labelColor: Colors.black,
-              indicatorColor: Colors.black,
+              labelColor: isDark ? Colors.white : Colors.black,
+              indicatorColor: isDark ? Colors.white : Colors.black,
               dividerColor: Colors.transparent,
               overlayColor: WidgetStateProperty.all(Colors.transparent),
               labelStyle: GoogleFonts.inter(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
+                color: isDark ? Colors.white : Colors.black,
               ),
               unselectedLabelStyle: GoogleFonts.inter(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
+                color: isDark ? Colors.white70 : Colors.black54,
               ),
               tabs: widget.tabs
                   .map((source) => Tab(text: source.name))

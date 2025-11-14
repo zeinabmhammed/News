@@ -14,7 +14,7 @@ class AppImages{
   // lightImage
   static const String generalLight = "assets/images/generalLight.png";
   static const String businessLight = "assets/images/busniessLight.png";
-  static const String sportsLight = "assets/images/entertainmentLight.png";
+  static const String sportsLight = "assets/images/sportLight.png";
   static const String healthLight = "assets/images/healthLight.png";
   static const String entertainmentLight = "assets/images/entertainmentLight.png";
   static const String technologyLight = "assets/images/technologyLight.png";

@@ -208,42 +208,46 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                 borderRadius: BorderRadius.circular(16),
               ),
               child: DropdownButtonHideUnderline(
-                child: DropdownButton<String>(
-                  dropdownColor: AppColors.dark,
-                  value: "Light",
-                  items: [
-                    DropdownMenuItem(
-                      value: "Light",
-                      child: Text(
-                        "Light",
-                        style: TextStyle(color: AppColors.light),
-                      ),
-                    ),
-                    DropdownMenuItem(
-                      value: "Dark",
-                      child: Text(
-                        "Dark",
-                        style: TextStyle(color: AppColors.light),
-                      ),
-                    ),
-                  ],
-                  onChanged: (value) {
-                    if (value == "Light") {
-                      themeProvider.setThemeMode(ThemeMode.light);
-                    } else {
-                      themeProvider.setThemeMode(ThemeMode.dark);
-                    }
+                child: Consumer<ThemeProvider>(
+                  builder: (context, themeProvider, child) {
+                    String currentValue = themeProvider.isDarkMode ? "Dark" : "Light";
+
+                    return DropdownButton<String>(
+                      dropdownColor: AppColors.dark,
+                      value: currentValue,
+                      items: [
+                        DropdownMenuItem(
+                          value: "Light",
+                          child: Text(
+                            "Light",
+                            style: TextStyle(color: AppColors.light),
+                          ),
+                        ),
+                        DropdownMenuItem(
+                          value: "Dark",
+                          child: Text(
+                            "Dark",
+                            style: TextStyle(color: AppColors.light),
+                          ),
+                        ),
+                      ],
+                      onChanged: (value) {
+                        if (value == "Light") {
+                          themeProvider.setThemeMode(ThemeMode.light);
+                        } else {
+                          themeProvider.setThemeMode(ThemeMode.dark);
+                        }
+                      },
+                    );
                   },
                 ),
               ),
             ),
-
             const SizedBox(height: 25),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Divider(color: AppColors.light),
             ),
-            const SizedBox(height: 25),
 
             Padding(
               padding: const EdgeInsets.all(16),
