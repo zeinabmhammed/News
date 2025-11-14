@@ -10,8 +10,8 @@ class CustomScaffold extends StatefulWidget {
   final String title;
   final List<Widget> actions;
   final Widget body;
-  final Function(String)? onSearchChanged; // callback للبحث
-  final bool enableSearch; // لو عايزة تفعل البحث
+  final Function(String)? onSearchChanged;
+  final bool enableSearch;
 
   const CustomScaffold({
     super.key,
@@ -60,18 +60,17 @@ class _CustomScaffoldState extends State<CustomScaffold> {
               hintText: "Search",
               hintStyle: TextStyle(
                 color: isDarkMode ? Colors.white54 : Colors.black54,
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
               ),
               filled: true,
-              fillColor: isDarkMode
-                  ? Colors.grey.shade900
-                  : Colors.grey.shade200,
               contentPadding: const EdgeInsets.symmetric(
                   vertical: 0, horizontal: 16),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(24),
                 borderSide: BorderSide(
                   color: isDarkMode ? AppColors.light : AppColors.dark,
-                  width: 1.5,
+                  width: 1,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
@@ -85,7 +84,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                 borderRadius: BorderRadius.circular(24),
                 borderSide: BorderSide(
                   color: isDarkMode ? AppColors.light : AppColors.dark,
-                  width: 2,
+                  width: 1,
                 ),
               ),
             ),
@@ -111,7 +110,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                   isSearching = false;
                   searchController.clear();
                   if (widget.onSearchChanged != null) {
-                    widget.onSearchChanged!(""); // إعادة النتائج الأصلية
+                    widget.onSearchChanged!("");
                   }
                 });
               },

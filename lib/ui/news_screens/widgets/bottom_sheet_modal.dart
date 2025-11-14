@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news/api/model/response/articles/Articles.dart';
-import 'full_article_screen.dart';
+import 'package:news/ui/news_screens/widgets/full_article_screen.dart';
 
-void showArticleBottomSheet(
-  BuildContext context,
-  Article article,
-  String sourceName,
-) {
+void showArticleBottomSheet(BuildContext context, Article article, String sourceName) {
   final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
   showModalBottomSheet(
@@ -63,23 +59,21 @@ void showArticleBottomSheet(
                     foregroundColor: isDarkMode ? Colors.black : Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                   onPressed: () {
+                    Navigator.pop(context);
+
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => FullArticleScreen(
-                          article: article,
-                          sourceName: sourceName,
-                        ),
+                        builder: (_) => FullArticleWebView(url: article.url ?? ""),
                       ),
                     );
                   },
-                  child: Text(
-                    "View Full Article",
-                    style: GoogleFonts.inter(
+                  child: Text("View Full Article",
+                    style:  GoogleFonts.inter(
                       fontWeight: FontWeight.w700,
                       fontSize: 16,
                       color: isDarkMode ? Colors.black : Colors.white,

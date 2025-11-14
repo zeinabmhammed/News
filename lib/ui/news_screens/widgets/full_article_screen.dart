@@ -1,41 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:news/api/model/response/articles/Articles.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
-class FullArticleScreen extends StatelessWidget {
-  final Article article;
-  final String sourceName;
+class FullArticleWebView extends StatelessWidget {
+  final String url;
 
-  const FullArticleScreen({super.key, required this.article, required this.sourceName});
+  const FullArticleWebView({super.key, required this.url});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(sourceName),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: ListView(
-          children: [
-            if (article.urlToImage != null)
-              Image.network(
-                article.urlToImage!,
-                height: 250,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
-            const SizedBox(height: 12),
-            Text(
-              article.title ?? "",
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              article.content ?? article.description ?? "",
-              style: const TextStyle(fontSize: 16),
-            ),
-          ],
-        ),
+    final controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..loadRequest(Uri.parse(url));
+
+    return SafeArea(
+      child: Scaffold(
+        body: WebViewWidget(controller: controller),
       ),
     );
   }
